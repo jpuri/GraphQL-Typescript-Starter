@@ -1,0 +1,38 @@
+{
+  "name": "myapp_server",
+  "author": "Jyoti Puri <jyotipuri@gmail.com>",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "apollo-server-express": "^1.1.0",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "graphql": "^0.10.5",
+    "path": "^0.12.7",
+    "pg": "^7.1.2",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^8.0.24",
+    "chai": "^4.1.1",
+    "db-migrate": "^0.10.0-beta.23",
+    "db-migrate-pg": "^0.2.5",
+    "dotenv": "^4.0.0",
+    "graphql-tools": "^1.2.1",
+    "mocha": "^3.5.0",
+    "prettier": "^1.5.3",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.4.2"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "watch": "rm -rf dist && tsc && tsc -w",
+    "serve": "NODE_ENV=dev nodemon dist/index.js",
+    "test": "NODE_ENV=test mocha config/test-setup.js --require ts-node/register src/**/*.spec.ts",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "migrate-up": "db-migrate up -e dev",
+    "prettier": "prettier src/**/*.* --write --parser \"typescript\""
+  }
+}
