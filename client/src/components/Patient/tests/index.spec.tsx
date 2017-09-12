@@ -13,6 +13,7 @@ describe('<Patient>', () => {
             address: 'test-address',
             age: 10
           }}
+          deletePatient={() => {}}
         />
       )
     ).not.toBe(null);

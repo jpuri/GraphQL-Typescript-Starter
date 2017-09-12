@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import { graphql, gql } from 'react-apollo';
+import { graphql, compose, gql } from 'react-apollo';
 import Patient, { PatientIntf } from '../Patient';
 
 const ALL_PATIENTS_QUERY = gql`
-  # 2
   query AllPatientsQuery {
     allPatients {
       id
@@ -15,11 +14,29 @@ const ALL_PATIENTS_QUERY = gql`
   }
 `;
 
+const DELETE_PATIENTS_MUTATION = gql`
+  mutation DeletePatientMutation(
+    $id: String!
+  ) {
+    deletePatient(id: $id)
+  }
+`;
+
 interface Props {
   allPatientsQuery: any;
+  deletePatientMutation: any;
 }
 
 export class PatientList extends PureComponent<Props> {
+
+  deletePatient = async (id: String) => {
+    await this.props.deletePatientMutation({
+      variables: {
+        id
+      }
+    });
+  }
+
   render() {
     const { allPatientsQuery } = this.props;
 
@@ -44,7 +61,7 @@ export class PatientList extends PureComponent<Props> {
         </thead>
         <tbody>
           {allPatients.map((patient: PatientIntf) =>
-            <Patient key={patient.id} patient={patient} />
+            <Patient key={patient.id} patient={patient} deletePatient={this.deletePatient}/>
           )}
         </tbody>
       </table>
@@ -52,6 +69,9 @@ export class PatientList extends PureComponent<Props> {
   }
 }
 
-export default graphql(ALL_PATIENTS_QUERY, { name: 'allPatientsQuery' })(
+export default compose(
+  graphql(ALL_PATIENTS_QUERY, { name: 'allPatientsQuery' }),
+  graphql(DELETE_PATIENTS_MUTATION, { name: 'deletePatientMutation' })
+)(
   PatientList as any
 );

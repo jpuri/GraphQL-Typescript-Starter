@@ -18,12 +18,13 @@ async function get(query: string): Promise<any>  {
   return res.rows;
 }
 
-async function insert(query: InsertQuery): Promise<any> {
+async function mutate(query: InsertQuery): Promise<any> {
   const res = await pool.query(query);
+  console.log('res', res)
   return res.rowCount;
 }
 
 module.exports = {
   get,
-  insert
+  mutate
 };

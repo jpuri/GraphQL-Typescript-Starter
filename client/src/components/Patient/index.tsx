@@ -10,6 +10,7 @@ export interface PatientIntf {
 
 interface Props {
   patient: PatientIntf;
+  deletePatient: Function;
 }
 
 const Cell = styled.td`
@@ -17,11 +18,24 @@ const Cell = styled.td`
   text-align: center;
 `;
 
-const Patient = ({ patient }: Props) =>
-  <tr>
-    <Cell>{patient.name}</Cell>
-    <Cell>{patient.age}</Cell>
-    <Cell>{patient.address}</Cell>
-  </tr>;
+class Patient extends React.Component<Props> {
+
+  deletePatient = () => {
+    const { patient: {id}, deletePatient } = this.props;
+    deletePatient(id);
+  }
+
+  render() {
+    const { patient } = this.props;
+    return (
+      <tr>
+        <Cell onClick={this.deletePatient}>Delete</Cell>
+        <Cell>{patient.name}</Cell>
+        <Cell>{patient.age}</Cell>
+        <Cell>{patient.address}</Cell>
+      </tr>
+    );
+  }
+};
 
 export default Patient;

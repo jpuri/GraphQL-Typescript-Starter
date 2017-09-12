@@ -4,7 +4,6 @@ import { graphql, gql } from 'react-apollo';
 import styled from 'styled-components';
 
 const CREATE_PATIENT_MUTATION = gql`
-  # 2
   mutation CreatePatientMutation(
     $name: String!
     $address: String!

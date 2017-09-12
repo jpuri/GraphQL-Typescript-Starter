@@ -15,6 +15,7 @@ export const typeDefs = `
 
   type Mutation {
     createPatient(name: String!, address: String!, age: Int!): Patient
+    deletePatient(id: String!): String
   }
 `;
 
@@ -28,6 +29,10 @@ export const resolvers = {
       const newPatient = Object.assign({ id: uuidv1() }, data);
       Patient.createPatient(newPatient);
       return newPatient;
+    },
+    deletePatient: (_, data) => {
+      Patient.deletePatient(data.id);
+      return "SUCCESS";
     }
   },
 };
