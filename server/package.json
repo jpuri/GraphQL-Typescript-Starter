@@ -24,7 +24,8 @@
     "mocha": "^3.5.0",
     "prettier": "^1.5.3",
     "ts-node": "^3.3.0",
-    "typescript": "^2.4.2"
+    "typescript": "^2.4.2",
+    "nodemon": "^2.0.2"
   },
   "scripts": {
     "build": "rm -rf dist && tsc",
